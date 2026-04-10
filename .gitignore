@@ -1,0 +1,15 @@
+*
+
+!.gitignore
+!CMakeLists.txt
+
+!include
+!include/CiEApplication
+!include/CiEApplication/*.hpp
+
+!src
+!src/*.cpp
+!src/bindings
+!src/bindings/*.cpp
+!src/scripts
+!src/scripts/*.py
