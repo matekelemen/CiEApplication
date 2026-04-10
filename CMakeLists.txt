@@ -5,6 +5,7 @@ set(application_name "${PROJECT_NAME}")
 
 # Collect dependencies.
 find_package(linalg REQUIRED)
+message(STATUS "Found linalg at ${linalg_DIR}")
 
 # Define main library.
 add_library(${application_core_name} SHARED)
@@ -17,18 +18,21 @@ set_target_properties(
     ${application_core_name}
     PROPERTIES
         COMPILE_DEFINITIONS
-            "CiEApplication=EXPORT_API")
+            "CIE_APPLICATION=EXPORT,API")
 
 # Common headers.
 target_include_directories(
     ${application_core_name}
     PRIVATE
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-        "$<BUILD_INTERFACE:${KRATOS_SOURCE_DIR}/kratos>"
     INTERFACE
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-        "$<BUILD_INTERFACE:${KRATOS_SOURCE_DIR}/kratos>"
         "$<INSTALL_INTERFACE:include>")
+
+target_include_directories(
+    ${application_core_name} SYSTEM
+    PRIVATE "$<BUILD_INTERFACE:${KRATOS_SOURCE_DIR}/kratos>"
+    INTERFACE "$<BUILD_INTERFACE:${KRATOS_SOURCE_DIR}/kratos>")
 
 # Common sources.
 file(
